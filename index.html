@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Lifecycle Security Adventure</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-container {
+            background: rgba(44, 44, 44, 0.92);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 820px;
+            width: 92%;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            max-height: 92vh;
+            backdrop-filter: blur(6px);
+            border: 1px solid #444;
+        }
+
+        h1 {
+            color: #00e676;
+            font-size: 2.8em;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 10px rgba(0, 230, 118, 0.4);
+        }
+
+        #stage-title {
+            color: #40c4ff;
+            font-size: 2em;
+            margin: 24px 0 16px;
+            font-weight: 600;
+        }
+
+        #question {
+            font-size: 1.25em;
+            margin: 0 0 32px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .option-btn {
+            background: #37474f;
+            border: 2px solid #546e7a;
+            color: #e0f2f1;
+            padding: 16px 24px;
+            font-size: 1.05em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #455a64;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .option-btn.correct {
+            background: #2e7d32;
+            border-color: #1b5e20;
+            box-shadow: 0 0 20px rgba(46, 125, 50, 0.6);
+        }
+
+        .option-btn.incorrect {
+            background: #c62828;
+            border-color: #b71c1c;
+            box-shadow: 0 0 20px rgba(198, 40, 40, 0.5);
+        }
+
+        #feedback {
+            font-size: 1.15em;
+            margin: 24px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        #feedback.correct { background: #1b5e20; color: #e8f5e9; }
+        #feedback.incorrect { background: #b71c1c; color: #ffebee; }
+
+        #next-btn, #restart-btn {
+            background: #0288d1;
+            color: white;
+            padding: 16px 40px;
+            font-size: 1.15em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 12px 0;
+            box-shadow: 0 6px 16px rgba(2, 136, 209, 0.3);
+        }
+
+        #next-btn:hover, #restart-btn:hover {
+            background: #0277bd;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(2, 136, 209, 0.5);
+        }
+
+        #restart-btn {
+            background: #f57c00;
+            box-shadow: 0 6px 16px rgba(245, 124, 0, 0.4);
+        }
+
+        #restart-btn:hover {
+            background: #ef6c00;
+            box-shadow: 0 10px 24px rgba(245, 124, 0, 0.6);
+        }
+
+        #progress-bar {
+            background: #455a64;
+            border-radius: 20px;
+            height: 12px;
+            margin: 0 0 32px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        #progress-fill {
+            background: linear-gradient(90deg, #00e676, #4caf50);
+            height: 100%;
+            width: 0;
+            transition: width 0.6s ease;
+        }
+
+        .incident-alert {
+            background: #d84315;
+            color: white;
+            padding: 22px;
+            border-radius: 10px;
+            margin: 24px 0;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(216, 67, 21, 0.5);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        #result-screen {
+            display: none;
+            padding: 40px 20px;
+        }
+
+        #score-display {
+            font-size: 3.2em;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        .pass { color: #00e676; text-shadow: 0 0 20px #00e676; }
+        .fail { color: #ff5252; text-shadow: 0 0 20px #ff5252; }
+
+        #result-message {
+            font-size: 1.4em;
+            margin: 20px 0 40px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>IT Lifecycle Security Adventure</h1>
+        <div id="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+
+        <div id="gameplay">
+            <div id="stage-title"></div>
+            <div id="question"></div>
+            <div class="options" id="options"></div>
+            <div id="feedback"></div>
+            <button id="next-btn">Next Stage →</button>
+        </div>
+
+        <div id="result-screen">
+            <h2>Security Lifecycle Mission Complete!</h2>
+            <div id="score-display"></div>
+            <div id="result-message"></div>
+            <button id="restart-btn">Restart Mission</button>
+        </div>
+    </div>
+
+    <script>
+        const stages = [
+            { name: "Plan", question: "In the Planning stage, what is a key security principle?", 
+              options: [
+                { text: "Ignore potential risks to save time", correct: false, feedback: "Wrong – early risk identification prevents major issues." },
+                { text: "Conduct a risk assessment and define security requirements", correct: true, feedback: "Correct! Security starts with planning." },
+                { text: "Focus only on budget without security", correct: false, feedback: "Wrong – budget must include security controls." },
+                { text: "Plan for open access to all users", correct: false, feedback: "Wrong – least privilege should be planned." }
+              ]},
+            { name: "Design", question: "How should security be integrated during Design?", 
+              options: [
+                { text: "Add security as an afterthought", correct: false, feedback: "Wrong – too late and expensive." },
+                { text: "Use secure design patterns (encryption, auth, least privilege)", correct: true, feedback: "Correct – security by design." },
+                { text: "Prioritize aesthetics over secure protocols", correct: false, feedback: "Wrong – security first." },
+                { text: "Ignore compliance standards", correct: false, feedback: "Wrong – compliance shapes secure design." }
+              ]},
+            { name: "Build", question: "What's essential for security in the Build stage?", 
+              options: [
+                { text: "Use unverified third-party libraries", correct: false, feedback: "Wrong – supply chain risk." },
+                { text: "Implement secure coding & regular code reviews", correct: true, feedback: "Correct – catches vulnerabilities early." },
+                { text: "Rush without testing code", correct: false, feedback: "Wrong – speed over safety fails." },
+                { text: "Store secrets in plain text", correct: false, feedback: "Wrong – use secret management." }
+              ]},
+            { name: "Test", question: "What security testing is critical in Test stage?", 
+              options: [
+                { text: "Only functional testing", correct: false, feedback: "Wrong – misses security flaws." },
+                { text: "Penetration testing & vulnerability scanning", correct: true, feedback: "Correct – finds real exploits." },
+                { text: "Test directly in production", correct: false, feedback: "Wrong – use isolated environments." },
+                { text: "Skip input validation tests", correct: false, feedback: "Wrong – XSS & injection common." }
+              ]},
+            { name: "Deploy", question: "How to secure the Deployment stage?", 
+              options: [
+                { text: "Deploy without monitoring", correct: false, feedback: "Wrong – blind deployment risky." },
+                { text: "Use CI/CD with security gates & signed artifacts", correct: true, feedback: "Correct – controlled & auditable." },
+                { text: "Expose all ports publicly", correct: false, feedback: "Wrong – minimize attack surface." },
+                { text: "No rollback plan", correct: false, feedback: "Wrong – always prepare for failure." }
+              ]},
+            { name: "Operate", question: "What ongoing security is vital in Operate?", 
+              options: [
+                { text: "No logging or monitoring", correct: false, feedback: "Wrong – visibility is essential." },
+                { text: "Continuous monitoring, logging & patch management", correct: true, feedback: "Correct – detect & respond fast." },
+                { text: "Unlimited access to logs", correct: false, feedback: "Wrong – protect log integrity." },
+                { text: "Ignore user security awareness", correct: false, feedback: "Wrong – humans are the weakest link." }
+              ],
+              incident: true
+            },
+            { name: "Incident Response", question: "SolarWinds supply-chain attack (2020) – first step in response?", 
+              options: [
+                { text: "Ignore it and wait", correct: false, feedback: "Wrong – delays make it worse." },
+                { text: "Detect → Analyze → Contain the breach quickly", correct: true, feedback: "Correct – NIST IR: Contain first!" },
+                { text: "Publicly announce before investigation", correct: false, feedback: "Wrong – understand scope first." },
+                { text: "Blame users without evidence", correct: false, feedback: "Wrong – follow facts." }
+              ]},
+            { name: "Manage", question: "Post-incident in Manage stage – best action?", 
+              options: [
+                { text: "Do nothing after recovery", correct: false, feedback: "Wrong – learn nothing." },
+                { text: "Conduct post-mortem & improve controls", correct: true, feedback: "Correct – build resilience." },
+                { text: "Reduce security budget", correct: false, feedback: "Wrong – opposite needed." },
+                { text: "Permanently isolate everything", correct: false, feedback: "Wrong – balance needed." }
+              ]},
+            { name: "Retire", question: "Security best practice when Retiring systems?", 
+              options: [
+                { text: "Leave data on old hardware", correct: false, feedback: "Wrong – data breach risk." },
+                { text: "Secure wipe, cryptographic erase & safe disposal", correct: true, feedback: "Correct – data protection until end." },
+                { text: "Hand over to unknown third party", correct: false, feedback: "Wrong – chain of custody." },
+                { text: "Ignore retention policies", correct: false, feedback: "Wrong – legal requirements." }
+              ]}
+        ];
+
+        let currentStage = 0;
+        let score = 0;
+        let selected = null;
+
+        const stageTitleEl = document.getElementById('stage-title');
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const gameplayDiv = document.getElementById('gameplay');
+        const resultScreen = document.getElementById('result-screen');
+        const scoreDisplay = document.getElementById('score-display');
+        const resultMessage = document.getElementById('result-message');
+
+        function loadStage() {
+            const stage = stages[currentStage];
+            stageTitleEl.textContent = `Phase ${currentStage + 1}: ${stage.name}`;
+            questionEl.textContent = stage.question;
+            optionsEl.innerHTML = '';
+            feedbackEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            selected = null;
+
+            // Clear previous incident alert if any
+            document.querySelectorAll('.incident-alert').forEach(el => el.remove());
+
+            if (stage.incident) {
+                const alert = document.createElement('div');
+                alert.className = 'incident-alert';
+                alert.textContent = "SECURITY INCIDENT DETECTED! (SolarWinds-style supply chain compromise)";
+                questionEl.before(alert);
+            }
+
+            stage.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.text;
+                btn.dataset.idx = idx;
+                btn.onclick = () => selectOption(idx, opt.correct);
+                optionsEl.appendChild(btn);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(idx, isCorrect) {
+            if (selected !== null) return;
+            selected = idx;
+
+            const buttons = optionsEl.querySelectorAll('.option-btn');
+            buttons.forEach((b, i) => {
+                b.disabled = true;
+                if (i === idx) {
+                    b.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+                if (stages[currentStage].options[i].correct) {
+                    b.classList.add('correct');
+                }
+            });
+
+            feedbackEl.textContent = stages[currentStage].options[idx].feedback;
+            feedbackEl.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+            feedbackEl.style.display = 'block';
+
+            if (isCorrect) score++;
+
+            nextBtn.style.display = 'inline-block';
+        }
+
+        function updateProgress() {
+            const percent = ((currentStage + 1) / stages.length) * 100;
+            progressFill.style.width = percent + '%';
+        }
+
+        function showResults() {
+            gameplayDiv.style.display = 'none';
+            resultScreen.style.display = 'block';
+
+            const percentage = Math.round((score / stages.length) * 100);
+            const passed = percentage >= 75;
+
+            scoreDisplay.textContent = `${percentage}% (${score}/${stages.length})`;
+            scoreDisplay.className = passed ? 'pass' : 'fail';
+
+            resultMessage.textContent = passed 
+                ? "Excellent! You achieved Security Lifecycle Operator status. Your organization would be much safer with your decisions."
+                : "Mission incomplete. You scored below the 75% security threshold. Review the lifecycle controls and try again!";
+
+            restartBtn.style.display = 'block';
+        }
+
+        nextBtn.onclick = () => {
+            if (currentStage < stages.length - 1) {
+                currentStage++;
+                loadStage();
+            } else {
+                showResults();
+            }
+        };
+
+        restartBtn.onclick = () => {
+            currentStage = 0;
+            score = 0;
+            gameplayDiv.style.display = 'block';
+            resultScreen.style.display = 'none';
+            loadStage();
+        };
+
+        // Start game
+        loadStage();
+    </script>
+</body>
+</html>
