@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Lifecycle Security Adventure - Enhanced</title>
+    <title>IT & Identity Lifecycle Security Adventure - Expanded</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -188,7 +188,7 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>IT Lifecycle Security Adventure</h1>
+        <h1>IT & Identity Lifecycle Security Adventure</h1>
         <div id="progress-bar">
             <div id="progress-fill"></div>
         </div>
@@ -275,6 +275,57 @@
                 { text: "Formally decommission assets, securely wipe data, update registers, service maps & archive business documentation appropriately", correct: true, feedback: "Correct – clean closure prevents shadow IT & data exposure." },
                 { text: "Hand over hardware without wiping", correct: false, feedback: "Wrong – major data breach risk." },
                 { text: "Delete all records immediately", correct: false, feedback: "Wrong – retain for compliance & lessons learned." }
+              ]},
+            { name: "Identity Plan", question: "In planning Identity Lifecycle Management, how to integrate with asset registers?", 
+              options: [
+                { text: "Treat identities separately from other assets", correct: false, feedback: "Wrong – identities are critical assets too." },
+                { text: "Include user identities in asset registers, map to services & define IAM requirements (e.g., RBAC, MFA)", correct: true, feedback: "Correct – early planning prevents access sprawl; real-world: Poor planning led to over-privileged accounts in many breaches." },
+                { text: "Ignore HR processes in planning", correct: false, feedback: "Wrong – align with onboarding/offboarding." },
+                { text: "Plan for manual access grants only", correct: false, feedback: "Wrong – automate for scalability." }
+              ]},
+            { name: "Identity Design", question: "Designing IAM: In a real scenario like a cloud migration, what's key?", 
+              options: [
+                { text: "Design without federation or SSO", correct: false, feedback: "Wrong – increases phishing risks." },
+                { text: "Design zero-trust model with least privilege, integrating service maps for access paths", correct: true, feedback: "Correct – prevents lateral movement; e.g., in Colonial Pipeline (2021), compromised VPN credentials enabled ransomware." },
+                { text: "Allow shared accounts for simplicity", correct: false, feedback: "Wrong – auditability suffers." },
+                { text: "No need for access reviews in design", correct: false, feedback: "Wrong – build in periodic attestation." }
+              ]},
+            { name: "Identity Build & Test", question: "Building & testing IDM: Best practice for secure implementation?", 
+              options: [
+                { text: "Hardcode credentials in scripts", correct: false, feedback: "Wrong – exposure risk high." },
+                { text: "Build automated provisioning with secure APIs, test for privilege escalation using asset criticality", correct: true, feedback: "Correct – ensures controls; real-world: Untested IAM in SolarWinds allowed persistent access." },
+                { text: "Skip MFA testing", correct: false, feedback: "Wrong – MFA bypass common in attacks." },
+                { text: "Test only happy paths", correct: false, feedback: "Wrong – include failure & attack simulations." }
+              ]},
+            { name: "Identity Deploy & Operate", question: "Deploying & operating IDM: How to handle daily management?", 
+              options: [
+                { text: "Manual access changes without logging", correct: false, feedback: "Wrong – no audit trail." },
+                { text: "Automate JIT access, monitor anomalies with integrated logs & service maps", correct: true, feedback: "Correct – reduces standing privileges; e.g., in Uber breach (2022), repeated MFA fatigue led to compromise." },
+                { text: "Ignore password rotation", correct: false, feedback: "Wrong – stale creds are exploited." },
+                { text: "No user training on phishing", correct: false, feedback: "Wrong – social engineering targets identities." }
+              ]},
+            { name: "Identity Incident Response", question: "Okta breach (2022) – hacker accessed support via social engineering. First response step?", 
+              options: [
+                { text: "Continue operations normally", correct: false, feedback: "Wrong – risks further compromise." },
+                { text: "Contain by resetting creds, using asset registers to scope impacted identities & services", correct: true, feedback: "Correct – quick isolation; real incident highlighted need for rapid deprovisioning & monitoring." },
+                { text: "Publicly disclose before containment", correct: false, feedback: "Wrong – secure first." },
+                { text: "Blame the vendor without internal review", correct: false, feedback: "Wrong – own your controls." }
+              ],
+              incident: true
+            },
+            { name: "Identity Manage", question: "Managing identities: Real-world scenario like employee role changes?", 
+              options: [
+                { text: "Keep old permissions indefinitely", correct: false, feedback: "Wrong – privilege creep occurs." },
+                { text: "Conduct regular access reviews, update registers & maps for changes in business documentation", correct: true, feedback: "Correct – maintains least privilege; e.g., in Twitter (2020), former employee access enabled hijacks." },
+                { text: "No need for audits", correct: false, feedback: "Wrong – compliance & security require them." },
+                { text: "Manual reviews only annually", correct: false, feedback: "Wrong – automate for efficiency." }
+              ]},
+            { name: "Identity Retire/Deprovision", question: "Offboarding identities: Why critical in real scenarios?", 
+              options: [
+                { text: "Delay deprovisioning for convenience", correct: false, feedback: "Wrong – orphan accounts exploited." },
+                { text: "Automate immediate revocation, update asset registers & archive access logs per policy", correct: true, feedback: "Correct – prevents insider threats; e.g., in Code Spaces (2014), ex-employee access led to total deletion." },
+                { text: "Leave accounts active", correct: false, feedback: "Wrong – major risk vector." },
+                { text: "No documentation of offboarding", correct: false, feedback: "Wrong – breaks audit chain." }
               ]}
         ];
 
@@ -360,8 +411,8 @@
             scoreDisplay.className = passed ? 'pass' : 'fail';
 
             resultMessage.textContent = passed 
-                ? "Outstanding! You demonstrated strong understanding of secure IT lifecycle management — including critical asset visibility, service mapping and documentation hygiene."
-                : "Mission requires improvement. You need at least 75% to pass. Focus especially on maintaining accurate asset registers, service maps and business documentation throughout the lifecycle — then try again!";
+                ? "Outstanding! You demonstrated strong understanding of secure IT and Identity lifecycle management — including critical asset visibility, service mapping, documentation hygiene, and real-world IDM scenarios."
+                : "Mission requires improvement. You need at least 75% to pass. Focus especially on maintaining accurate asset registers, service maps, business documentation, and Identity Lifecycle best practices throughout — then try again!";
 
             restartBtn.style.display = 'block';
         }
