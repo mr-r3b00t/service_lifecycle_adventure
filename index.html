@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Lifecycle Security Adventure</title>
+    <title>IT Lifecycle Security Adventure - Enhanced</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,84 +19,84 @@
         }
 
         #game-container {
-            background: rgba(44, 44, 44, 0.92);
+            background: rgba(44, 44, 44, 0.94);
             border-radius: 16px;
             padding: 40px;
-            max-width: 820px;
-            width: 92%;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+            max-width: 860px;
+            width: 94%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
             text-align: center;
             position: relative;
             overflow-y: auto;
-            max-height: 92vh;
-            backdrop-filter: blur(6px);
-            border: 1px solid #444;
+            max-height: 94vh;
+            backdrop-filter: blur(8px);
+            border: 1px solid #555;
         }
 
         h1 {
             color: #00e676;
-            font-size: 2.8em;
-            margin-bottom: 24px;
-            text-shadow: 0 2px 10px rgba(0, 230, 118, 0.4);
+            font-size: 2.9em;
+            margin-bottom: 28px;
+            text-shadow: 0 3px 12px rgba(0, 230, 118, 0.5);
         }
 
         #stage-title {
             color: #40c4ff;
-            font-size: 2em;
-            margin: 24px 0 16px;
+            font-size: 2.1em;
+            margin: 28px 0 18px;
             font-weight: 600;
         }
 
         #question {
-            font-size: 1.25em;
-            margin: 0 0 32px;
-            line-height: 1.6;
+            font-size: 1.28em;
+            margin: 0 0 36px;
+            line-height: 1.65;
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 18px;
+            margin-bottom: 36px;
         }
 
         .option-btn {
             background: #37474f;
             border: 2px solid #546e7a;
             color: #e0f2f1;
-            padding: 16px 24px;
-            font-size: 1.05em;
-            border-radius: 10px;
+            padding: 18px 26px;
+            font-size: 1.08em;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.35s ease;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.35);
         }
 
         .option-btn:hover:not(:disabled) {
             background: #455a64;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.45);
         }
 
         .option-btn.correct {
             background: #2e7d32;
             border-color: #1b5e20;
-            box-shadow: 0 0 20px rgba(46, 125, 50, 0.6);
+            box-shadow: 0 0 24px rgba(46, 125, 50, 0.7);
         }
 
         .option-btn.incorrect {
             background: #c62828;
             border-color: #b71c1c;
-            box-shadow: 0 0 20px rgba(198, 40, 40, 0.5);
+            box-shadow: 0 0 24px rgba(198, 40, 40, 0.6);
         }
 
         #feedback {
-            font-size: 1.15em;
-            margin: 24px 0;
-            padding: 20px;
-            border-radius: 10px;
+            font-size: 1.18em;
+            margin: 28px 0;
+            padding: 22px;
+            border-radius: 12px;
             display: none;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.45);
         }
 
         #feedback.correct { background: #1b5e20; color: #e8f5e9; }
@@ -105,82 +105,84 @@
         #next-btn, #restart-btn {
             background: #0288d1;
             color: white;
-            padding: 16px 40px;
-            font-size: 1.15em;
+            padding: 18px 48px;
+            font-size: 1.2em;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 20px 12px 0;
-            box-shadow: 0 6px 16px rgba(2, 136, 209, 0.3);
+            transition: all 0.35s ease;
+            margin: 24px 14px 0;
+            box-shadow: 0 8px 20px rgba(2, 136, 209, 0.35);
         }
 
         #next-btn:hover, #restart-btn:hover {
-            background: #0277bd;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(2, 136, 209, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(2, 136, 209, 0.55);
         }
+
+        #next-btn { background: #0288d1; }
+        #next-btn:hover { background: #0277bd; }
 
         #restart-btn {
             background: #f57c00;
-            box-shadow: 0 6px 16px rgba(245, 124, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(245, 124, 0, 0.45);
         }
 
         #restart-btn:hover {
             background: #ef6c00;
-            box-shadow: 0 10px 24px rgba(245, 124, 0, 0.6);
+            box-shadow: 0 12px 28px rgba(245, 124, 0, 0.65);
         }
 
         #progress-bar {
             background: #455a64;
-            border-radius: 20px;
-            height: 12px;
-            margin: 0 0 32px;
+            border-radius: 24px;
+            height: 14px;
+            margin: 0 0 36px;
             overflow: hidden;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.6);
         }
 
         #progress-fill {
-            background: linear-gradient(90deg, #00e676, #4caf50);
+            background: linear-gradient(90deg, #00e676, #43a047);
             height: 100%;
             width: 0;
-            transition: width 0.6s ease;
+            transition: width 0.7s ease;
         }
 
         .incident-alert {
             background: #d84315;
             color: white;
-            padding: 22px;
-            border-radius: 10px;
-            margin: 24px 0;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 28px 0;
             font-weight: bold;
-            box-shadow: 0 6px 20px rgba(216, 67, 21, 0.5);
-            animation: pulse 1.8s infinite;
+            box-shadow: 0 8px 24px rgba(216, 67, 21, 0.6);
+            animation: pulse 1.6s infinite;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
+            50% { transform: scale(1.045); }
         }
 
         #result-screen {
             display: none;
-            padding: 40px 20px;
+            padding: 48px 24px;
         }
 
         #score-display {
-            font-size: 3.2em;
+            font-size: 3.6em;
             font-weight: bold;
-            margin: 30px 0;
+            margin: 36px 0;
         }
 
-        .pass { color: #00e676; text-shadow: 0 0 20px #00e676; }
-        .fail { color: #ff5252; text-shadow: 0 0 20px #ff5252; }
+        .pass { color: #00e676; text-shadow: 0 0 24px #00e676; }
+        .fail  { color: #ff5252; text-shadow: 0 0 24px #ff5252; }
 
         #result-message {
-            font-size: 1.4em;
-            margin: 20px 0 40px;
-            line-height: 1.5;
+            font-size: 1.45em;
+            margin: 24px 0 48px;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -196,7 +198,7 @@
             <div id="question"></div>
             <div class="options" id="options"></div>
             <div id="feedback"></div>
-            <button id="next-btn">Next Stage →</button>
+            <button id="next-btn">Next Phase →</button>
         </div>
 
         <div id="result-screen">
@@ -209,70 +211,70 @@
 
     <script>
         const stages = [
-            { name: "Plan", question: "In the Planning stage, what is a key security principle?", 
+            { name: "Plan", question: "In the Planning phase, what foundational security & governance artefacts should be established?", 
               options: [
-                { text: "Ignore potential risks to save time", correct: false, feedback: "Wrong – early risk identification prevents major issues." },
-                { text: "Conduct a risk assessment and define security requirements", correct: true, feedback: "Correct! Security starts with planning." },
-                { text: "Focus only on budget without security", correct: false, feedback: "Wrong – budget must include security controls." },
-                { text: "Plan for open access to all users", correct: false, feedback: "Wrong – least privilege should be planned." }
+                { text: "Skip documentation to move faster", correct: false, feedback: "Incorrect – lack of documentation creates blind spots." },
+                { text: "Create asset register, service map, risk register & define security requirements", correct: true, feedback: "Correct! Asset registers, service maps and key business documentation provide the context needed for effective security planning." },
+                { text: "Only focus on technical specs, ignore business context", correct: false, feedback: "Wrong – security must align with business value & dependencies." },
+                { text: "Plan without identifying critical assets & services", correct: false, feedback: "Wrong – you can't protect what you don't know exists." }
               ]},
-            { name: "Design", question: "How should security be integrated during Design?", 
+            { name: "Design", question: "During Design, how do asset registers & service maps help security?", 
               options: [
-                { text: "Add security as an afterthought", correct: false, feedback: "Wrong – too late and expensive." },
-                { text: "Use secure design patterns (encryption, auth, least privilege)", correct: true, feedback: "Correct – security by design." },
-                { text: "Prioritize aesthetics over secure protocols", correct: false, feedback: "Wrong – security first." },
-                { text: "Ignore compliance standards", correct: false, feedback: "Wrong – compliance shapes secure design." }
+                { text: "They are not needed once planning is done", correct: false, feedback: "Wrong – they inform secure architecture decisions." },
+                { text: "They help identify crown-jewel assets and design appropriate controls (segmentation, encryption, access models)", correct: true, feedback: "Correct – service maps reveal dependencies; asset registers highlight what needs protection." },
+                { text: "Use them only for compliance checkboxes", correct: false, feedback: "Wrong – they drive real risk-based design." },
+                { text: "Ignore them and design freely", correct: false, feedback: "Wrong – leads to unprotected critical paths." }
               ]},
-            { name: "Build", question: "What's essential for security in the Build stage?", 
+            { name: "Build", question: "In Build, how should asset & service information be used?", 
               options: [
-                { text: "Use unverified third-party libraries", correct: false, feedback: "Wrong – supply chain risk." },
-                { text: "Implement secure coding & regular code reviews", correct: true, feedback: "Correct – catches vulnerabilities early." },
-                { text: "Rush without testing code", correct: false, feedback: "Wrong – speed over safety fails." },
-                { text: "Store secrets in plain text", correct: false, feedback: "Wrong – use secret management." }
+                { text: "Build everything the same way regardless of criticality", correct: false, feedback: "Wrong – criticality should drive hardening levels." },
+                { text: "Apply security controls proportionate to asset criticality from the register & service map", correct: true, feedback: "Correct – high-value assets get stricter build standards (e.g. secure boot, code signing)." },
+                { text: "Don't tag or label assets during build", correct: false, feedback: "Wrong – tagging enables lifecycle tracking." },
+                { text: "Store all secrets in config files", correct: false, feedback: "Wrong – use vault solutions referenced in design." }
               ]},
-            { name: "Test", question: "What security testing is critical in Test stage?", 
+            { name: "Test", question: "How do service maps support security testing?", 
               options: [
-                { text: "Only functional testing", correct: false, feedback: "Wrong – misses security flaws." },
-                { text: "Penetration testing & vulnerability scanning", correct: true, feedback: "Correct – finds real exploits." },
-                { text: "Test directly in production", correct: false, feedback: "Wrong – use isolated environments." },
-                { text: "Skip input validation tests", correct: false, feedback: "Wrong – XSS & injection common." }
+                { text: "They have no role in testing", correct: false, feedback: "Wrong – they show attack paths." },
+                { text: "They help scope penetration tests and identify critical integration points to validate", correct: true, feedback: "Correct – testers can focus on high-risk interfaces & crown jewels." },
+                { text: "Only test low-value assets", correct: false, feedback: "Wrong – opposite approach needed." },
+                { text: "Skip testing privileged accounts", correct: false, feedback: "Wrong – critical assets often have elevated access." }
               ]},
-            { name: "Deploy", question: "How to secure the Deployment stage?", 
+            { name: "Deploy", question: "During Deployment, why maintain accurate asset registers?", 
               options: [
-                { text: "Deploy without monitoring", correct: false, feedback: "Wrong – blind deployment risky." },
-                { text: "Use CI/CD with security gates & signed artifacts", correct: true, feedback: "Correct – controlled & auditable." },
-                { text: "Expose all ports publicly", correct: false, feedback: "Wrong – minimize attack surface." },
-                { text: "No rollback plan", correct: false, feedback: "Wrong – always prepare for failure." }
+                { text: "No need – deployment is the end", correct: false, feedback: "Wrong – registers must reflect production reality." },
+                { text: "To ensure all deployed assets are inventoried, tagged, monitored & included in CMDB / service maps", correct: true, feedback: "Correct – accurate inventory enables monitoring, patching & incident response." },
+                { text: "Deploy without updating documentation", correct: false, feedback: "Wrong – creates blind spots in operations." },
+                { text: "Expose management interfaces", correct: false, feedback: "Wrong – use network controls informed by maps." }
               ]},
-            { name: "Operate", question: "What ongoing security is vital in Operate?", 
+            { name: "Operate", question: "In Operate, what is the ongoing role of asset registers & service maps?", 
               options: [
-                { text: "No logging or monitoring", correct: false, feedback: "Wrong – visibility is essential." },
-                { text: "Continuous monitoring, logging & patch management", correct: true, feedback: "Correct – detect & respond fast." },
-                { text: "Unlimited access to logs", correct: false, feedback: "Wrong – protect log integrity." },
-                { text: "Ignore user security awareness", correct: false, feedback: "Wrong – humans are the weakest link." }
+                { text: "Archive them after go-live", correct: false, feedback: "Wrong – they must stay current." },
+                { text: "Use them for continuous monitoring, vulnerability management, patch prioritisation & incident scoping", correct: true, feedback: "Correct – live asset & service awareness is essential for effective operations security." },
+                { text: "Only use for annual audits", correct: false, feedback: "Wrong – real-time usage required." },
+                { text: "Ignore changes to the environment", correct: false, feedback: "Wrong – drift breaks security." }
               ],
               incident: true
             },
-            { name: "Incident Response", question: "SolarWinds supply-chain attack (2020) – first step in response?", 
+            { name: "Incident Response", question: "SolarWinds supply-chain attack – how do asset registers & service maps help during incident response?", 
               options: [
-                { text: "Ignore it and wait", correct: false, feedback: "Wrong – delays make it worse." },
-                { text: "Detect → Analyze → Contain the breach quickly", correct: true, feedback: "Correct – NIST IR: Contain first!" },
-                { text: "Publicly announce before investigation", correct: false, feedback: "Wrong – understand scope first." },
-                { text: "Blame users without evidence", correct: false, feedback: "Wrong – follow facts." }
+                { text: "They slow down the response", correct: false, feedback: "Wrong – they accelerate scoping." },
+                { text: "Quickly identify impacted assets, affected services & business-critical dependencies", correct: true, feedback: "Correct – accurate inventory & mapping = faster containment & communication." },
+                { text: "Not relevant – just rebuild everything", correct: false, feedback: "Wrong – blind rebuild wastes time & misses scope." },
+                { text: "Only useful after the incident", correct: false, feedback: "Wrong – needed during." }
               ]},
-            { name: "Manage", question: "Post-incident in Manage stage – best action?", 
+            { name: "Manage", question: "In the Manage phase, how should asset & service documentation be handled?", 
               options: [
-                { text: "Do nothing after recovery", correct: false, feedback: "Wrong – learn nothing." },
-                { text: "Conduct post-mortem & improve controls", correct: true, feedback: "Correct – build resilience." },
-                { text: "Reduce security budget", correct: false, feedback: "Wrong – opposite needed." },
-                { text: "Permanently isolate everything", correct: false, feedback: "Wrong – balance needed." }
+                { text: "Review only during audits", correct: false, feedback: "Wrong – continuous governance needed." },
+                { text: "Regularly review & update asset registers, service maps & key business documentation as part of risk & change management", correct: true, feedback: "Correct – living documentation supports sustained security posture." },
+                { text: "Allow documentation to become outdated", correct: false, feedback: "Wrong – creates governance gaps." },
+                { text: "Remove old assets without record", correct: false, feedback: "Wrong – breaks chain of custody." }
               ]},
-            { name: "Retire", question: "Security best practice when Retiring systems?", 
+            { name: "Retire", question: "During system Retirement, what must happen with asset registers & documentation?", 
               options: [
-                { text: "Leave data on old hardware", correct: false, feedback: "Wrong – data breach risk." },
-                { text: "Secure wipe, cryptographic erase & safe disposal", correct: true, feedback: "Correct – data protection until end." },
-                { text: "Hand over to unknown third party", correct: false, feedback: "Wrong – chain of custody." },
-                { text: "Ignore retention policies", correct: false, feedback: "Wrong – legal requirements." }
+                { text: "Leave retired assets in the register", correct: false, feedback: "Wrong – creates false positives." },
+                { text: "Formally decommission assets, securely wipe data, update registers, service maps & archive business documentation appropriately", correct: true, feedback: "Correct – clean closure prevents shadow IT & data exposure." },
+                { text: "Hand over hardware without wiping", correct: false, feedback: "Wrong – major data breach risk." },
+                { text: "Delete all records immediately", correct: false, feedback: "Wrong – retain for compliance & lessons learned." }
               ]}
         ];
 
@@ -280,17 +282,17 @@
         let score = 0;
         let selected = null;
 
-        const stageTitleEl = document.getElementById('stage-title');
-        const questionEl = document.getElementById('question');
-        const optionsEl = document.getElementById('options');
-        const feedbackEl = document.getElementById('feedback');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const progressFill = document.getElementById('progress-fill');
-        const gameplayDiv = document.getElementById('gameplay');
-        const resultScreen = document.getElementById('result-screen');
-        const scoreDisplay = document.getElementById('score-display');
-        const resultMessage = document.getElementById('result-message');
+        const stageTitleEl   = document.getElementById('stage-title');
+        const questionEl     = document.getElementById('question');
+        const optionsEl      = document.getElementById('options');
+        const feedbackEl     = document.getElementById('feedback');
+        const nextBtn        = document.getElementById('next-btn');
+        const restartBtn     = document.getElementById('restart-btn');
+        const progressFill   = document.getElementById('progress-fill');
+        const gameplayDiv    = document.getElementById('gameplay');
+        const resultScreen   = document.getElementById('result-screen');
+        const scoreDisplay   = document.getElementById('score-display');
+        const resultMessage  = document.getElementById('result-message');
 
         function loadStage() {
             const stage = stages[currentStage];
@@ -301,13 +303,12 @@
             nextBtn.style.display = 'none';
             selected = null;
 
-            // Clear previous incident alert if any
             document.querySelectorAll('.incident-alert').forEach(el => el.remove());
 
             if (stage.incident) {
                 const alert = document.createElement('div');
                 alert.className = 'incident-alert';
-                alert.textContent = "SECURITY INCIDENT DETECTED! (SolarWinds-style supply chain compromise)";
+                alert.textContent = "SECURITY INCIDENT DETECTED! (SolarWinds-style supply chain compromise – 2020)";
                 questionEl.before(alert);
             }
 
@@ -330,12 +331,8 @@
             const buttons = optionsEl.querySelectorAll('.option-btn');
             buttons.forEach((b, i) => {
                 b.disabled = true;
-                if (i === idx) {
-                    b.classList.add(isCorrect ? 'correct' : 'incorrect');
-                }
-                if (stages[currentStage].options[i].correct) {
-                    b.classList.add('correct');
-                }
+                if (i === idx) b.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if (stages[currentStage].options[i].correct) b.classList.add('correct');
             });
 
             feedbackEl.textContent = stages[currentStage].options[idx].feedback;
@@ -363,8 +360,8 @@
             scoreDisplay.className = passed ? 'pass' : 'fail';
 
             resultMessage.textContent = passed 
-                ? "Excellent! You achieved Security Lifecycle Operator status. Your organization would be much safer with your decisions."
-                : "Mission incomplete. You scored below the 75% security threshold. Review the lifecycle controls and try again!";
+                ? "Outstanding! You demonstrated strong understanding of secure IT lifecycle management — including critical asset visibility, service mapping and documentation hygiene."
+                : "Mission requires improvement. You need at least 75% to pass. Focus especially on maintaining accurate asset registers, service maps and business documentation throughout the lifecycle — then try again!";
 
             restartBtn.style.display = 'block';
         }
@@ -386,7 +383,7 @@
             loadStage();
         };
 
-        // Start game
+        // Start the game
         loadStage();
     </script>
 </body>
