@@ -214,65 +214,65 @@
             { name: "Plan", question: "In the Planning phase, what foundational security & governance artefacts should be established?", 
               options: [
                 { text: "Skip documentation to move faster", correct: false, feedback: "Incorrect – lack of documentation creates blind spots." },
-                { text: "Create asset register, service map, risk register & define security requirements", correct: true, feedback: "Correct! Asset registers, service maps and key business documentation provide the context needed for effective security planning." },
                 { text: "Only focus on technical specs, ignore business context", correct: false, feedback: "Wrong – security must align with business value & dependencies." },
+                { text: "Create asset register, service map, risk register & define security requirements", correct: true, feedback: "Correct! Asset registers, service maps and key business documentation provide the context needed for effective security planning." },
                 { text: "Plan without identifying critical assets & services", correct: false, feedback: "Wrong – you can't protect what you don't know exists." }
               ]},
             { name: "Design", question: "During Design, how do asset registers & service maps help security?", 
               options: [
-                { text: "They are not needed once planning is done", correct: false, feedback: "Wrong – they inform secure architecture decisions." },
                 { text: "They help identify crown-jewel assets and design appropriate controls (segmentation, encryption, access models)", correct: true, feedback: "Correct – service maps reveal dependencies; asset registers highlight what needs protection." },
+                { text: "They are not needed once planning is done", correct: false, feedback: "Wrong – they inform secure architecture decisions." },
                 { text: "Use them only for compliance checkboxes", correct: false, feedback: "Wrong – they drive real risk-based design." },
                 { text: "Ignore them and design freely", correct: false, feedback: "Wrong – leads to unprotected critical paths." }
               ]},
             { name: "Build", question: "In Build, how should asset & service information be used?", 
               options: [
-                { text: "Build everything the same way regardless of criticality", correct: false, feedback: "Wrong – criticality should drive hardening levels." },
                 { text: "Apply security controls proportionate to asset criticality from the register & service map", correct: true, feedback: "Correct – high-value assets get stricter build standards (e.g. secure boot, code signing)." },
+                { text: "Build everything the same way regardless of criticality", correct: false, feedback: "Wrong – criticality should drive hardening levels." },
                 { text: "Don't tag or label assets during build", correct: false, feedback: "Wrong – tagging enables lifecycle tracking." },
                 { text: "Store all secrets in config files", correct: false, feedback: "Wrong – use vault solutions referenced in design." }
               ]},
             { name: "Test", question: "How do service maps support security testing?", 
               options: [
                 { text: "They have no role in testing", correct: false, feedback: "Wrong – they show attack paths." },
-                { text: "They help scope penetration tests and identify critical integration points to validate", correct: true, feedback: "Correct – testers can focus on high-risk interfaces & crown jewels." },
                 { text: "Only test low-value assets", correct: false, feedback: "Wrong – opposite approach needed." },
+                { text: "They help scope penetration tests and identify critical integration points to validate", correct: true, feedback: "Correct – testers can focus on high-risk interfaces & crown jewels." },
                 { text: "Skip testing privileged accounts", correct: false, feedback: "Wrong – critical assets often have elevated access." }
               ]},
             { name: "Deploy", question: "During Deployment, why maintain accurate asset registers?", 
               options: [
                 { text: "No need – deployment is the end", correct: false, feedback: "Wrong – registers must reflect production reality." },
+                { text: "Expose management interfaces", correct: false, feedback: "Wrong – use network controls informed by maps." },
                 { text: "To ensure all deployed assets are inventoried, tagged, monitored & included in CMDB / service maps", correct: true, feedback: "Correct – accurate inventory enables monitoring, patching & incident response." },
-                { text: "Deploy without updating documentation", correct: false, feedback: "Wrong – creates blind spots in operations." },
-                { text: "Expose management interfaces", correct: false, feedback: "Wrong – use network controls informed by maps." }
+                { text: "Deploy without updating documentation", correct: false, feedback: "Wrong – creates blind spots in operations." }
               ]},
             { name: "Operate", question: "In Operate, what is the ongoing role of asset registers & service maps?", 
               options: [
                 { text: "Archive them after go-live", correct: false, feedback: "Wrong – they must stay current." },
-                { text: "Use them for continuous monitoring, vulnerability management, patch prioritisation & incident scoping", correct: true, feedback: "Correct – live asset & service awareness is essential for effective operations security." },
                 { text: "Only use for annual audits", correct: false, feedback: "Wrong – real-time usage required." },
+                { text: "Use them for continuous monitoring, vulnerability management, patch prioritisation & incident scoping", correct: true, feedback: "Correct – live asset & service awareness is essential for effective operations security." },
                 { text: "Ignore changes to the environment", correct: false, feedback: "Wrong – drift breaks security." }
               ],
               incident: true
             },
             { name: "Incident Response", question: "SolarWinds supply-chain attack – how do asset registers & service maps help during incident response?", 
               options: [
-                { text: "They slow down the response", correct: false, feedback: "Wrong – they accelerate scoping." },
                 { text: "Quickly identify impacted assets, affected services & business-critical dependencies", correct: true, feedback: "Correct – accurate inventory & mapping = faster containment & communication." },
+                { text: "They slow down the response", correct: false, feedback: "Wrong – they accelerate scoping." },
                 { text: "Not relevant – just rebuild everything", correct: false, feedback: "Wrong – blind rebuild wastes time & misses scope." },
                 { text: "Only useful after the incident", correct: false, feedback: "Wrong – needed during." }
               ]},
             { name: "Manage", question: "In the Manage phase, how should asset & service documentation be handled?", 
               options: [
-                { text: "Review only during audits", correct: false, feedback: "Wrong – continuous governance needed." },
                 { text: "Regularly review & update asset registers, service maps & key business documentation as part of risk & change management", correct: true, feedback: "Correct – living documentation supports sustained security posture." },
+                { text: "Review only during audits", correct: false, feedback: "Wrong – continuous governance needed." },
                 { text: "Allow documentation to become outdated", correct: false, feedback: "Wrong – creates governance gaps." },
                 { text: "Remove old assets without record", correct: false, feedback: "Wrong – breaks chain of custody." }
               ]},
             { name: "Retire", question: "During system Retirement, what must happen with asset registers & documentation?", 
               options: [
-                { text: "Leave retired assets in the register", correct: false, feedback: "Wrong – creates false positives." },
                 { text: "Formally decommission assets, securely wipe data, update registers, service maps & archive business documentation appropriately", correct: true, feedback: "Correct – clean closure prevents shadow IT & data exposure." },
+                { text: "Leave retired assets in the register", correct: false, feedback: "Wrong – creates false positives." },
                 { text: "Hand over hardware without wiping", correct: false, feedback: "Wrong – major data breach risk." },
                 { text: "Delete all records immediately", correct: false, feedback: "Wrong – retain for compliance & lessons learned." }
               ]},
@@ -285,29 +285,29 @@
               ]},
             { name: "Identity Design", question: "Designing IAM: In a real scenario like a cloud migration, what's key?", 
               options: [
-                { text: "Design without federation or SSO", correct: false, feedback: "Wrong – increases phishing risks." },
                 { text: "Design zero-trust model with least privilege, integrating service maps for access paths", correct: true, feedback: "Correct – prevents lateral movement; e.g., in Colonial Pipeline (2021), compromised VPN credentials enabled ransomware." },
+                { text: "Design without federation or SSO", correct: false, feedback: "Wrong – increases phishing risks." },
                 { text: "Allow shared accounts for simplicity", correct: false, feedback: "Wrong – auditability suffers." },
                 { text: "No need for access reviews in design", correct: false, feedback: "Wrong – build in periodic attestation." }
               ]},
             { name: "Identity Build & Test", question: "Building & testing IDM: Best practice for secure implementation?", 
               options: [
                 { text: "Hardcode credentials in scripts", correct: false, feedback: "Wrong – exposure risk high." },
-                { text: "Build automated provisioning with secure APIs, test for privilege escalation using asset criticality", correct: true, feedback: "Correct – ensures controls; real-world: Untested IAM in SolarWinds allowed persistent access." },
                 { text: "Skip MFA testing", correct: false, feedback: "Wrong – MFA bypass common in attacks." },
+                { text: "Build automated provisioning with secure APIs, test for privilege escalation using asset criticality", correct: true, feedback: "Correct – ensures controls; real-world: Untested IAM in SolarWinds allowed persistent access." },
                 { text: "Test only happy paths", correct: false, feedback: "Wrong – include failure & attack simulations." }
               ]},
             { name: "Identity Deploy & Operate", question: "Deploying & operating IDM: How to handle daily management?", 
               options: [
-                { text: "Manual access changes without logging", correct: false, feedback: "Wrong – no audit trail." },
                 { text: "Automate JIT access, monitor anomalies with integrated logs & service maps", correct: true, feedback: "Correct – reduces standing privileges; e.g., in Uber breach (2022), repeated MFA fatigue led to compromise." },
+                { text: "Manual access changes without logging", correct: false, feedback: "Wrong – no audit trail." },
                 { text: "Ignore password rotation", correct: false, feedback: "Wrong – stale creds are exploited." },
                 { text: "No user training on phishing", correct: false, feedback: "Wrong – social engineering targets identities." }
               ]},
             { name: "Identity Incident Response", question: "Okta breach (2022) – hacker accessed support via social engineering. First response step?", 
               options: [
-                { text: "Continue operations normally", correct: false, feedback: "Wrong – risks further compromise." },
                 { text: "Contain by resetting creds, using asset registers to scope impacted identities & services", correct: true, feedback: "Correct – quick isolation; real incident highlighted need for rapid deprovisioning & monitoring." },
+                { text: "Continue operations normally", correct: false, feedback: "Wrong – risks further compromise." },
                 { text: "Publicly disclose before containment", correct: false, feedback: "Wrong – secure first." },
                 { text: "Blame the vendor without internal review", correct: false, feedback: "Wrong – own your controls." }
               ],
@@ -315,15 +315,15 @@
             },
             { name: "Identity Manage", question: "Managing identities: Real-world scenario like employee role changes?", 
               options: [
-                { text: "Keep old permissions indefinitely", correct: false, feedback: "Wrong – privilege creep occurs." },
                 { text: "Conduct regular access reviews, update registers & maps for changes in business documentation", correct: true, feedback: "Correct – maintains least privilege; e.g., in Twitter (2020), former employee access enabled hijacks." },
+                { text: "Keep old permissions indefinitely", correct: false, feedback: "Wrong – privilege creep occurs." },
                 { text: "No need for audits", correct: false, feedback: "Wrong – compliance & security require them." },
                 { text: "Manual reviews only annually", correct: false, feedback: "Wrong – automate for efficiency." }
               ]},
             { name: "Identity Retire/Deprovision", question: "Offboarding identities: Why critical in real scenarios?", 
               options: [
-                { text: "Delay deprovisioning for convenience", correct: false, feedback: "Wrong – orphan accounts exploited." },
                 { text: "Automate immediate revocation, update asset registers & archive access logs per policy", correct: true, feedback: "Correct – prevents insider threats; e.g., in Code Spaces (2014), ex-employee access led to total deletion." },
+                { text: "Delay deprovisioning for convenience", correct: false, feedback: "Wrong – orphan accounts exploited." },
                 { text: "Leave accounts active", correct: false, feedback: "Wrong – major risk vector." },
                 { text: "No documentation of offboarding", correct: false, feedback: "Wrong – breaks audit chain." }
               ]}
@@ -359,7 +359,7 @@
             if (stage.incident) {
                 const alert = document.createElement('div');
                 alert.className = 'incident-alert';
-                alert.textContent = "SECURITY INCIDENT DETECTED! (SolarWinds-style supply chain compromise – 2020)";
+                alert.textContent = "SECURITY INCIDENT DETECTED! (Real-world breach example)";
                 questionEl.before(alert);
             }
 
